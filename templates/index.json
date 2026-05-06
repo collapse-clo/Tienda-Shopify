@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "hero_RkimKJ": {
       "type": "hero",
@@ -18,15 +19,15 @@
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
+            "vertical_alignment": "flex-end",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
+            "vertical_alignment_flex_direction_column": "flex-end",
+            "gap": 16,
             "width": "custom",
-            "custom_width": 34,
+            "custom_width": 50,
             "width_mobile": "custom",
-            "custom_width_mobile": 53,
+            "custom_width_mobile": 90,
             "height": "fit",
             "custom_height": 100,
             "inherit_color_scheme": true,
@@ -43,26 +44,76 @@
             "overlay_style": "solid",
             "gradient_direction": "to top",
             "padding-block-start": 0,
-            "padding-block-end": 0,
+            "padding-block-end": 64,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
+            "label_hero": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Phase 01 — Static — SS26</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "0.7rem",
+                "line_height": "normal",
+                "letter_spacing": "0.2em",
+                "case": "uppercase",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "text_KxeJ6r": {
               "type": "text",
               "settings": {
-                "text": "<p>Savor every. last. bite. </p>",
+                "text": "<h1>Collapse</h1>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h2",
+                "type_preset": "h1",
                 "font": "var(--font-primary--family)",
                 "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
+                "line_height": "0.95",
+                "letter_spacing": "0.08em",
+                "case": "uppercase",
                 "wrap": "pretty",
                 "color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "subtext_hero": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Ropa para después. Sin ruido. Sin temporadas que caducan.</p>",
+                "width": "custom",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "0.85rem",
+                "line_height": "1.6",
+                "letter_spacing": "0.04em",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -76,10 +127,10 @@
             "button_nazDaa": {
               "type": "button",
               "settings": {
-                "label": "Shop all →",
+                "label": "Shop Now",
                 "link": "shopify://collections/all",
                 "open_in_new_tab": false,
-                "style_class": "link",
+                "style_class": "primary",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
@@ -89,7 +140,9 @@
             }
           },
           "block_order": [
+            "label_hero",
             "text_KxeJ6r",
+            "subtext_hero",
             "button_nazDaa"
           ]
         }
@@ -104,15 +157,15 @@
         "content_direction": "column",
         "vertical_on_mobile": true,
         "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
+        "vertical_alignment": "flex-end",
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "flex-end",
         "gap": 16,
-        "section_width": "page-width",
+        "section_width": "full-width",
         "section_height": "large",
         "section_height_custom": 50,
-        "color_scheme": "scheme-4",
+        "color_scheme": "scheme-5",
         "toggle_overlay": false,
         "overlay_color": "#000000",
         "overlay_style": "solid",
@@ -123,6 +176,66 @@
         "padding-block-end": 0
       }
     },
+    "statement_collapse": {
+      "type": "section",
+      "blocks": {
+        "text_statement": {
+          "type": "text",
+          "settings": {
+            "text": "<p>\"Construido para lo que viene.\"</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "h3",
+            "font": "var(--font-primary--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "0.06em",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_statement"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "center",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-1",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
+    },
     "product_list_X8Q7bi": {
       "type": "product-list",
       "blocks": {
@@ -130,13 +243,13 @@
           "type": "_product-list-content",
           "static": true,
           "settings": {
-            "content_direction": "column",
+            "content_direction": "row",
             "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
+            "horizontal_alignment": "space-between",
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "flex-start",
             "gap": 12,
             "width": "fill",
             "custom_width": 100,
@@ -153,10 +266,10 @@
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-block-start": 32,
+            "padding-block-end": 24,
+            "padding-inline-start": 24,
+            "padding-inline-end": 24
           },
           "blocks": {}
         },
@@ -167,7 +280,7 @@
           "settings": {
             "product_card_gap": 0,
             "inherit_color_scheme": false,
-            "color_scheme": "scheme-2",
+            "color_scheme": "scheme-1",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
@@ -182,7 +295,7 @@
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
               "settings": {
-                "image_ratio": "square",
+                "image_ratio": "portrait",
                 "border": "solid",
                 "border_width": 0,
                 "border_opacity": 0,
@@ -214,7 +327,7 @@
                 "height": "fit",
                 "custom_height": 100,
                 "inherit_color_scheme": true,
-                "color_scheme": "scheme-2",
+                "color_scheme": "scheme-1",
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
@@ -227,7 +340,7 @@
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
                 "padding-block-start": 12,
-                "padding-block-end": 12,
+                "padding-block-end": 16,
                 "padding-inline-start": 12,
                 "padding-inline-end": 12
               },
@@ -246,9 +359,9 @@
                     "vertical_alignment_flex_direction_column": "flex-start",
                     "gap": 8,
                     "width": "fill",
-                    "custom_width": 75,
-                    "width_mobile": "custom",
-                    "custom_width_mobile": 75,
+                    "custom_width": 100,
+                    "width_mobile": "fill",
+                    "custom_width_mobile": 100,
                     "height": "fit",
                     "custom_height": 100,
                     "inherit_color_scheme": true,
@@ -277,12 +390,12 @@
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "left",
-                        "type_preset": "h5",
+                        "type_preset": "paragraph",
                         "font": "var(--font-body--family)",
-                        "font_size": "1rem",
+                        "font_size": "0.75rem",
                         "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
+                        "letter_spacing": "0.12em",
+                        "case": "uppercase",
                         "wrap": "pretty",
                         "color": "var(--color-foreground)",
                         "background": false,
@@ -306,9 +419,9 @@
                         "width": "fit-content",
                         "alignment": "right",
                         "font": "var(--font-body--family)",
-                        "font_size": "1rem",
+                        "font_size": "0.75rem",
                         "line_height": "normal",
-                        "letter_spacing": "normal",
+                        "letter_spacing": "0.04em",
                         "case": "none",
                         "color": "var(--color-foreground)",
                         "padding-block-start": 0,
@@ -323,80 +436,10 @@
                     "product_title_gtg38q",
                     "price_Vz3EzL"
                   ]
-                },
-                "group_3Fwdtp": {
-                  "type": "_product-card-group",
-                  "name": "t:names.group",
-                  "settings": {
-                    "open_in_new_tab": false,
-                    "content_direction": "column",
-                    "vertical_on_mobile": true,
-                    "horizontal_alignment": "flex-start",
-                    "vertical_alignment": "center",
-                    "align_baseline": false,
-                    "horizontal_alignment_flex_direction_column": "flex-start",
-                    "vertical_alignment_flex_direction_column": "flex-start",
-                    "gap": 12,
-                    "width": "fit-content",
-                    "custom_width": 100,
-                    "width_mobile": "fill",
-                    "custom_width_mobile": 25,
-                    "height": "fit",
-                    "custom_height": 100,
-                    "inherit_color_scheme": true,
-                    "color_scheme": "",
-                    "background_media": "none",
-                    "video_position": "cover",
-                    "background_image_position": "cover",
-                    "border": "none",
-                    "border_width": 1,
-                    "border_opacity": 100,
-                    "border_radius": 0,
-                    "toggle_overlay": false,
-                    "overlay_color": "#00000026",
-                    "overlay_style": "solid",
-                    "gradient_direction": "to top",
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {
-                    "text_JHMjjF": {
-                      "type": "text",
-                      "name": "t:names.text",
-                      "settings": {
-                        "text": "<p>{{ closest.product.metafields.descriptors.subtitle.value }}</p>",
-                        "width": "100%",
-                        "max_width": "none",
-                        "alignment": "left",
-                        "type_preset": "paragraph",
-                        "font": "var(--font-primary--family)",
-                        "font_size": "var(--font-size--body-md)",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_JHMjjF"
-                  ]
                 }
               },
               "block_order": [
-                "group_pLH7Cd",
-                "group_3Fwdtp"
+                "group_pLH7Cd"
               ]
             }
           },
@@ -406,7 +449,7 @@
           ]
         }
       },
-      "name": "Featured collection",
+      "name": "Phase 01 — Static",
       "settings": {
         "collection": "all",
         "layout_type": "grid",
@@ -427,147 +470,51 @@
         "padding-block-end": 0
       }
     },
-    "section_RhpYRt": {
+    "manifesto_collapse": {
       "type": "section",
       "blocks": {
-        "video_NqWNaD": {
-          "type": "video",
-          "name": "t:names.video",
+        "text_manifesto": {
+          "type": "text",
           "settings": {
-            "source": "url",
-            "video_url": "",
-            "video_autoplay": false,
-            "video_loop": true,
-            "alt": "",
-            "custom_width": 67,
-            "custom_width_mobile": 100,
-            "aspect_ratio": "16/9",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
+            "text": "<p><strong>COLLAPSE es ropa para después.</strong></p><p>No diseñamos para tendencias.<br>Diseñamos para lo que viene cuando las tendencias no importen.</p><p>Cada prenda: un material con razón.<br>Cada corte: una decisión, no una opinión.</p><p>Sin ruido. Sin logo que pida atención.<br>Sin temporadas que caducan.</p><p><strong>Solo construcción.</strong></p>",
+            "width": "custom",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "paragraph",
+            "font": "var(--font-body--family)",
+            "font_size": "0.9rem",
+            "line_height": "2.2",
+            "letter_spacing": "0.06em",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {}
-        },
-        "group_TEanyT": {
-          "type": "group",
-          "name": "Caption",
-          "settings": {
-            "open_in_new_tab": false,
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "custom",
-            "custom_width": 33,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "padding-block-start": 40,
-            "padding-block-end": 40,
-            "padding-inline-start": 40,
-            "padding-inline-end": 40
-          },
-          "blocks": {
-            "text_BRFzjN": {
-              "type": "text",
-              "name": "t:names.heading",
-              "settings": {
-                "text": "<h3>A Family Tradition of Bold, Fresh Flavor</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-primary--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "text_tKxhbY": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Food has the power to connect generations. Whether it’s learning family recipes or the intense memories triggered by the flavors and aromas of our childhood.</p>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-primary--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_BRFzjN",
-            "text_tKxhbY"
-          ]
         }
       },
       "block_order": [
-        "video_NqWNaD",
-        "group_TEanyT"
+        "text_manifesto"
       ],
-      "name": "t:names.video_section",
       "settings": {
-        "content_direction": "row",
+        "content_direction": "column",
         "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
+        "horizontal_alignment": "center",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
+        "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 6,
-        "section_width": "full-width",
+        "gap": 0,
+        "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-5",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -579,14 +526,15 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "padding-block-start": 96,
+        "padding-block-end": 96
       }
     }
   },
   "order": [
     "hero_RkimKJ",
+    "statement_collapse",
     "product_list_X8Q7bi",
-    "section_RhpYRt"
+    "manifesto_collapse"
   ]
 }
