@@ -1,0 +1,182 @@
+/* ============================================================
+   COLLAPSE — Custom visual layer
+   ============================================================ */
+
+:root {
+  --clp-off-white:   #F5F0E8;
+  --clp-black:       #1A1A1A;
+  --clp-grey:        #8C8C8C;
+  --clp-beige:       #D4CFC7;
+  --clp-border:      #2C2C2C;
+
+  --clp-tracking-wide: 0.14em;
+  --clp-tracking-body: 0.03em;
+
+  --hover-transition-duration: 0.35s;
+}
+
+/* ── Fondo base negro ───────────────────────────────────── */
+
+body {
+  background: var(--clp-black);
+}
+
+/* ── Textura de grano ácido — overlay fijo ───────────────── */
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+}
+
+/* ── Desgaste ácido — bordes de sección ─────────────────── */
+
+.shopify-section + .shopify-section {
+  position: relative;
+}
+
+.shopify-section + .shopify-section::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #2a2a2a 8%,
+    #333 35%,
+    #2a2a2a 62%,
+    transparent 100%
+  );
+  opacity: 0.7;
+}
+
+/* ── Header sticky ───────────────────────────────────────── */
+
+header-component,
+.header-wrapper,
+#header-component {
+  background: var(--clp-black) !important;
+  border-bottom: 1px solid var(--clp-border) !important;
+}
+
+/* Logo centrado — tracking amplio */
+.header__logo,
+.header__logo-link {
+  letter-spacing: 0.22em;
+  font-family: var(--font-primary--family);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+/* Nav links */
+.header__nav-link,
+.header__menu-link,
+.header__active-menu-item {
+  font-size: 10px !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  font-weight: 400 !important;
+  opacity: 0.75;
+  transition: opacity 0.25s ease;
+}
+
+.header__nav-link:hover,
+.header__menu-link:hover {
+  opacity: 1;
+}
+
+/* ── Tipografía ──────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: var(--clp-tracking-wide);
+  font-weight: 400;
+}
+
+body, p {
+  letter-spacing: var(--clp-tracking-body);
+  font-weight: 400;
+}
+
+/* ── Botones ─────────────────────────────────────────────── */
+
+.button, button[type="submit"] {
+  letter-spacing: 0.16em;
+  font-weight: 400;
+  border-radius: 0 !important;
+  transition: background-color var(--hover-transition-duration) ease,
+              color var(--hover-transition-duration) ease;
+}
+
+/* ── Links ───────────────────────────────────────────────── */
+
+a {
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+}
+
+/* ── Cards de producto ───────────────────────────────────── */
+
+.card, .product-card, .collection-card {
+  border-radius: 0;
+}
+
+/* ── Variantes ───────────────────────────────────────────── */
+
+.variant-button, .swatch {
+  border-radius: 0;
+}
+
+/* ── Formularios ─────────────────────────────────────────── */
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+  border-radius: 0;
+  letter-spacing: var(--clp-tracking-body);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: var(--clp-black); }
+::-webkit-scrollbar-thumb { background: #333; }
+::-webkit-scrollbar-thumb:hover { background: var(--clp-grey); }
+
+/* ── Cart drawer ─────────────────────────────────────────── */
+
+.cart-drawer {
+  border-radius: 0;
+  border-left: 1px solid var(--clp-border);
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+
+.footer {
+  border-top: 1px solid var(--clp-border);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+}
+
+/* ── Precio ──────────────────────────────────────────────── */
+
+.price, .price__regular {
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+/* ── Accordion ───────────────────────────────────────────── */
+
+.accordion__title {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
