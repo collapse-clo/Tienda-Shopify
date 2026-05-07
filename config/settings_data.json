@@ -10,8 +10,8 @@
 {
   "current": {
     "logo": "shopify://shop_images/LOGO-removebg-preview.png",
-    "logo_height": 49,
-    "logo_height_mobile": 26,
+    "logo_height": 37,
+    "logo_height_mobile": 23,
     "type_body_font": "inter_n4",
     "type_subheading_font": "inter_n3",
     "type_heading_font": "syne_n4",
