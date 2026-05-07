@@ -64,6 +64,18 @@ header-component,
   border-bottom: 1px solid var(--clp-border) !important;
 }
 
+/* Header más fino — reduce padding sin tocar el logo */
+.header__row,
+.header__row--top {
+  padding-block: 8px !important;
+  min-height: unset !important;
+}
+
+header-component {
+  --header-height-desktop: 52px;
+  --header-height-mobile: 44px;
+}
+
 /* Logo centrado — tracking amplio */
 .header__logo,
 .header__logo-link {
