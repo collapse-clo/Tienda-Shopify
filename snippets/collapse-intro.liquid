@@ -1,0 +1,219 @@
+{%- unless request.design_mode -%}
+<style>
+  #clp-intro {
+    position: fixed;
+    inset: 0;
+    background: #080808;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Canvas matrix fondo */
+  #clp-hack-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0.3;
+  }
+
+  /* Scanlines */
+  #clp-intro::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.18) 2px,
+      rgba(0,0,0,0.18) 4px
+    );
+    z-index: 6;
+    pointer-events: none;
+    animation: clp-scan 6s linear infinite;
+  }
+
+  @keyframes clp-scan {
+    from { background-position: 0 0; }
+    to   { background-position: 0 120px; }
+  }
+
+  /* Viñeta */
+  #clp-intro::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.75) 100%);
+    z-index: 7;
+    pointer-events: none;
+  }
+
+  /* Contenedor del logo */
+  .clp-intro__inner {
+    position: relative;
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Logo base */
+  .clp-intro__logo {
+    width: auto;
+    height: 72px;
+    max-width: 300px;
+    object-fit: contain;
+    display: block;
+    position: relative;
+    z-index: 2;
+    animation: clp-logo-in 0.5s ease forwards;
+  }
+
+  .clp-intro__logo-text {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 2.8rem;
+    letter-spacing: 0.5em;
+    color: #F5F0E8;
+    text-indent: 0.5em;
+    font-weight: 300;
+    position: relative;
+    z-index: 2;
+    animation: clp-logo-in 0.5s ease forwards;
+  }
+
+  @keyframes clp-logo-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* Capas de glitch */
+  .clp-glitch-a,
+  .clp-glitch-b {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .clp-glitch-a img,
+  .clp-glitch-b img {
+    height: 72px;
+    max-width: 300px;
+    object-fit: contain;
+  }
+
+  .clp-glitch-a {
+    mix-blend-mode: screen;
+    opacity: 0.55;
+    animation: clp-ga 2.8s steps(1) infinite;
+  }
+
+  .clp-glitch-b {
+    mix-blend-mode: screen;
+    opacity: 0.45;
+    animation: clp-gb 3.4s steps(1) infinite;
+  }
+
+  @keyframes clp-ga {
+    0%,88%,100% { clip-path: none; transform: translate(0,0); filter: none; }
+    89% { clip-path: polygon(0 12%,100% 12%,100% 22%,0 22%); transform: translate(-5px,0); filter: hue-rotate(180deg) brightness(2.5); }
+    91% { clip-path: polygon(0 58%,100% 58%,100% 66%,0 66%); transform: translate(5px,0);  filter: hue-rotate(90deg) brightness(2); }
+    93% { clip-path: polygon(0 38%,100% 38%,100% 44%,0 44%); transform: translate(-3px,0); filter: brightness(3); }
+    95% { clip-path: polygon(0 78%,100% 78%,100% 84%,0 84%); transform: translate(4px,0);  filter: hue-rotate(260deg); }
+    97% { clip-path: none; transform: translate(0,0); filter: none; }
+  }
+
+  @keyframes clp-gb {
+    0%,82%,100% { clip-path: none; transform: translate(0,0); filter: none; }
+    83% { clip-path: polygon(0 48%,100% 48%,100% 54%,0 54%); transform: translate(4px,0);  filter: hue-rotate(60deg) brightness(2); }
+    85% { clip-path: polygon(0 20%,100% 20%,100% 28%,0 28%); transform: translate(-6px,0); filter: brightness(1.8); }
+    87% { clip-path: none; transform: translate(0,0); filter: none; }
+  }
+
+  /* Salida: contrae la pantalla como TV apagándose */
+  #clp-intro.clp-intro--exit {
+    animation: clp-exit 0.8s cubic-bezier(0.7, 0, 1, 1) forwards;
+    transform-origin: center;
+  }
+
+  @keyframes clp-exit {
+    0%   { transform: scaleY(1);    opacity: 1; }
+    55%  { transform: scaleY(0.015); opacity: 1; }
+    100% { transform: scaleY(0.015); opacity: 0; }
+  }
+</style>
+
+<div id="clp-intro">
+  <canvas id="clp-hack-canvas"></canvas>
+  <div class="clp-intro__inner">
+    {%- if settings.logo != blank -%}
+      {%- assign logo_src = settings.logo | image_url: width: 600 -%}
+      <img src="{{ logo_src }}" alt="{{ shop.name }}" class="clp-intro__logo">
+      <div class="clp-glitch-a"><img src="{{ logo_src }}" alt=""></div>
+      <div class="clp-glitch-b"><img src="{{ logo_src }}" alt=""></div>
+    {%- else -%}
+      <span class="clp-intro__logo-text">{{ shop.name | upcase }}</span>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+(function () {
+  if (sessionStorage.getItem('clp-intro-seen')) {
+    var el = document.getElementById('clp-intro');
+    if (el) el.remove();
+    return;
+  }
+
+  var canvas  = document.getElementById('clp-hack-canvas');
+  var ctx     = canvas.getContext('2d');
+  var chars   = '01アイウエオCOLLAPSE!@#$%^&*<>/\\|[]{}ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var drops   = [];
+  var columns = 0;
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    columns = Math.floor(canvas.width / 16);
+    drops   = Array(columns).fill(1);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  function draw() {
+    ctx.fillStyle = 'rgba(8,8,8,0.07)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = '11px "Helvetica Neue", monospace';
+
+    for (var i = 0; i < drops.length; i++) {
+      var ch = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillStyle = Math.random() > 0.94 ? '#ffffff' : 'rgba(245,240,232,0.35)';
+      ctx.fillText(ch, i * 16, drops[i] * 16);
+      if (drops[i] * 16 > canvas.height && Math.random() > 0.97) drops[i] = 0;
+      drops[i]++;
+    }
+  }
+
+  var loop = setInterval(draw, 48);
+
+  /* Salida a los 3.2s + 0.8s animación = 4s total */
+  setTimeout(function () {
+    clearInterval(loop);
+    var intro = document.getElementById('clp-intro');
+    if (!intro) return;
+    intro.classList.add('clp-intro--exit');
+    setTimeout(function () {
+      intro.remove();
+      sessionStorage.setItem('clp-intro-seen', '1');
+    }, 800);
+  }, 3200);
+})();
+</script>
+{%- endunless -%}
