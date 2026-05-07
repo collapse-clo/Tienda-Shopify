@@ -1,0 +1,199 @@
+<div class="clp-nl">
+  <div class="clp-nl__inner">
+
+    <div class="clp-nl__left">
+      <p class="clp-nl__label">{{ section.settings.label }}</p>
+      <h2 class="clp-nl__heading">{{ section.settings.heading }}</h2>
+      <p class="clp-nl__sub">{{ section.settings.subtext }}</p>
+
+      {%- if section.settings.proof != blank -%}
+        <p class="clp-nl__proof">{{ section.settings.proof }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="clp-nl__right">
+      {%- form 'customer', id: 'clp-nl-form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,collapse-list">
+        {%- if form.posted_successfully? -%}
+          <div class="clp-nl__success">
+            <span>✓</span>
+            <p>{{ section.settings.success_msg }}</p>
+          </div>
+        {%- else -%}
+          <div class="clp-nl__form-wrap">
+            <input
+              type="email"
+              name="contact[email]"
+              class="clp-nl__input"
+              placeholder="{{ section.settings.placeholder }}"
+              required
+              autocomplete="email"
+            >
+            <button type="submit" class="clp-nl__btn">
+              {{ section.settings.btn_label }}
+            </button>
+          </div>
+          {%- if form.errors -%}
+            <p class="clp-nl__error">{{ form.errors | default_errors }}</p>
+          {%- endif -%}
+          <p class="clp-nl__disclaimer">{{ section.settings.disclaimer }}</p>
+        {%- endif -%}
+      {%- endform -%}
+
+      <div class="clp-nl__perks">
+        {%- if section.settings.perk_1 != blank -%}
+          <span class="clp-nl__perk">{{ section.settings.perk_1 }}</span>
+        {%- endif -%}
+        {%- if section.settings.perk_2 != blank -%}
+          <span class="clp-nl__perk">{{ section.settings.perk_2 }}</span>
+        {%- endif -%}
+        {%- if section.settings.perk_3 != blank -%}
+          <span class="clp-nl__perk">{{ section.settings.perk_3 }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% stylesheet %}
+.clp-nl {
+  background: #0D0D0D;
+  padding: 96px 40px;
+  border-top: 1px solid #2C2C2C;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ruido de fondo sutil */
+.clp-nl::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+}
+
+.clp-nl__inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  position: relative;
+}
+
+/* Lado izquierdo */
+.clp-nl__label {
+  font-size: 0.6rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(245,240,232,0.35);
+  margin: 0 0 20px;
+}
+.clp-nl__heading {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 400; letter-spacing: 0.06em;
+  text-transform: uppercase; color: #F5F0E8;
+  line-height: 1.1; margin: 0 0 20px;
+}
+.clp-nl__sub {
+  font-size: 0.82rem; line-height: 2;
+  color: rgba(245,240,232,0.5); letter-spacing: 0.04em;
+  margin: 0 0 28px;
+}
+.clp-nl__proof {
+  font-size: 0.65rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(245,240,232,0.3);
+  margin: 0;
+}
+
+/* Lado derecho */
+.clp-nl__form-wrap {
+  display: flex; flex-direction: column; gap: 12px;
+  margin-bottom: 16px;
+}
+.clp-nl__input {
+  background: rgba(245,240,232,0.04);
+  border: 1px solid rgba(245,240,232,0.15);
+  color: #F5F0E8;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 0.78rem; letter-spacing: 0.08em;
+  padding: 16px 20px; outline: none;
+  transition: border-color 0.25s;
+  width: 100%;
+}
+.clp-nl__input::placeholder { color: rgba(245,240,232,0.3); }
+.clp-nl__input:focus { border-color: rgba(245,240,232,0.5); }
+
+.clp-nl__btn {
+  background: #F5F0E8; color: #0D0D0D;
+  border: none; cursor: pointer;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 0.7rem; letter-spacing: 0.25em;
+  text-transform: uppercase; font-weight: 400;
+  padding: 16px 32px;
+  transition: background 0.25s, color 0.25s;
+  width: 100%;
+}
+.clp-nl__btn:hover { background: #fff; }
+
+.clp-nl__disclaimer {
+  font-size: 0.6rem; letter-spacing: 0.1em;
+  color: rgba(245,240,232,0.25); margin: 0;
+  line-height: 1.8;
+}
+.clp-nl__error {
+  font-size: 0.68rem; color: #ff6b6b;
+  letter-spacing: 0.06em; margin: 8px 0 0;
+}
+
+/* Perks */
+.clp-nl__perks {
+  display: flex; flex-direction: column; gap: 10px;
+  margin-top: 28px; border-top: 1px solid #2C2C2C; padding-top: 24px;
+}
+.clp-nl__perk {
+  font-size: 0.65rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(245,240,232,0.35);
+  display: flex; align-items: center; gap: 10px;
+}
+.clp-nl__perk::before {
+  content: '→'; color: rgba(245,240,232,0.2);
+}
+
+/* Success */
+.clp-nl__success {
+  display: flex; align-items: center; gap: 16px; padding: 24px 0;
+}
+.clp-nl__success span {
+  font-size: 1.4rem; color: #F5F0E8;
+}
+.clp-nl__success p {
+  font-size: 0.78rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(245,240,232,0.7);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .clp-nl { padding: 72px 24px; }
+  .clp-nl__inner { grid-template-columns: 1fr; gap: 48px; }
+  .clp-nl__heading { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text",     "id": "label",       "label": "Etiqueta",          "default": "Lista de drops" },
+    { "type": "text",     "id": "heading",      "label": "Título principal",  "default": "Sé el primero." },
+    { "type": "textarea", "id": "subtext",      "label": "Subtexto",          "default": "Drops limitados. Sin restock. Si no estás en la lista, te quedas fuera. Los suscriptores acceden primero a cada fase." },
+    { "type": "text",     "id": "proof",        "label": "Social proof",      "default": "" },
+    { "type": "text",     "id": "placeholder",  "label": "Placeholder email", "default": "Tu email" },
+    { "type": "text",     "id": "btn_label",    "label": "Texto del botón",   "default": "Unirse a la lista" },
+    { "type": "text",     "id": "disclaimer",   "label": "Aviso legal",       "default": "Sin spam. Solo lanzamientos y acceso anticipado. Puedes darte de baja cuando quieras." },
+    { "type": "text",     "id": "success_msg",  "label": "Mensaje de éxito",  "default": "Ya estás en la lista. Te avisamos primero." },
+    { "type": "text",     "id": "perk_1",       "label": "Ventaja 1",         "default": "Acceso anticipado a cada drop" },
+    { "type": "text",     "id": "perk_2",       "label": "Ventaja 2",         "default": "Primero en saber qué viene en Phase 02" },
+    { "type": "text",     "id": "perk_3",       "label": "Ventaja 3",         "default": "Sin spam. Solo lo que importa." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}
