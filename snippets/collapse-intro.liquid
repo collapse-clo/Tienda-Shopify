@@ -1,219 +1,365 @@
 {%- unless request.design_mode -%}
+{%- if settings.logo != blank -%}
+  {%- assign logo_src = settings.logo | image_url: width: 800 -%}
+{%- endif -%}
+
 <style>
-  #clp-intro {
-    position: fixed;
-    inset: 0;
-    background: #080808;
-    z-index: 999999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
+/* ============================================================
+   COLLAPSE — Cinematic Hacker Intro
+   ============================================================ */
+#clp-i {
+  position: fixed; inset: 0; z-index: 999999;
+  background: #000; overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex; align-items: center; justify-content: center;
+}
 
-  /* Canvas matrix fondo */
-  #clp-hack-canvas {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    opacity: 0.3;
-  }
+/* Canvas fondo */
+#clp-c { position: absolute; inset: 0; z-index: 1; }
 
-  /* Scanlines */
-  #clp-intro::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.18) 2px,
-      rgba(0,0,0,0.18) 4px
-    );
-    z-index: 6;
-    pointer-events: none;
-    animation: clp-scan 6s linear infinite;
-  }
+/* Scanlines */
+#clp-i::before {
+  content: ''; position: absolute; inset: 0; z-index: 12; pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.13) 2px, rgba(0,0,0,0.13) 4px
+  );
+}
 
-  @keyframes clp-scan {
-    from { background-position: 0 0; }
-    to   { background-position: 0 120px; }
-  }
+/* Viñeta CRT */
+#clp-i::after {
+  content: ''; position: absolute; inset: 0; z-index: 13; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 38%, rgba(0,0,0,0.88) 100%);
+}
 
-  /* Viñeta */
-  #clp-intro::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.75) 100%);
-    z-index: 7;
-    pointer-events: none;
-  }
+/* Flash overlay */
+#clp-fl {
+  position: absolute; inset: 0; z-index: 25; pointer-events: none;
+  opacity: 0;
+}
 
-  /* Contenedor del logo */
-  .clp-intro__inner {
-    position: relative;
-    z-index: 8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+/* ── Logo wrap ── */
+#clp-lw {
+  position: relative; z-index: 15;
+  opacity: 0;
+  will-change: transform, opacity;
+}
 
-  /* Logo base */
-  .clp-intro__logo {
-    width: auto;
-    height: 72px;
-    max-width: 300px;
-    object-fit: contain;
-    display: block;
-    position: relative;
-    z-index: 2;
-    animation: clp-logo-in 0.5s ease forwards;
-  }
+/* Logo layers */
+.clp-ll {
+  display: block;
+  height: 80px; width: auto; max-width: 280px;
+  object-fit: contain;
+}
 
-  .clp-intro__logo-text {
-    font-family: 'Helvetica Neue', Helvetica, sans-serif;
-    font-size: 2.8rem;
-    letter-spacing: 0.5em;
-    color: #F5F0E8;
-    text-indent: 0.5em;
-    font-weight: 300;
-    position: relative;
-    z-index: 2;
-    animation: clp-logo-in 0.5s ease forwards;
-  }
+#clp-lg-r, #clp-lg-b {
+  position: absolute; top: 0; left: 0;
+  opacity: 0; pointer-events: none;
+  mix-blend-mode: screen;
+}
 
-  @keyframes clp-logo-in {
-    from { opacity: 0; transform: scale(0.96); }
-    to   { opacity: 1; transform: scale(1); }
-  }
+/* Aberración cromática normal */
+.chr #clp-lg-r { opacity: 0.65; transform: translate(-4px, 0);  filter: hue-rotate(330deg) saturate(4); }
+.chr #clp-lg-b { opacity: 0.65; transform: translate( 4px, 0);  filter: hue-rotate(210deg) saturate(4); }
+/* Aberración intensa fase 4 */
+.chr-x #clp-lg-r { opacity: 0.9; transform: translate(-12px, 2px);  filter: hue-rotate(330deg) saturate(6); }
+.chr-x #clp-lg-b { opacity: 0.9; transform: translate( 12px,-2px);  filter: hue-rotate(210deg) saturate(6); }
 
-  /* Capas de glitch */
-  .clp-glitch-a,
-  .clp-glitch-b {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    z-index: 3;
-  }
+/* Línea de escáner */
+#clp-sl {
+  position: absolute; left: -24px; right: -24px; height: 2px;
+  background: linear-gradient(to right, transparent, #00FF41 20%, #00FF41 80%, transparent);
+  box-shadow: 0 0 8px #00FF41, 0 0 18px #00FF41;
+  top: 0; opacity: 0; pointer-events: none;
+}
+#clp-sl.on { opacity: 1; animation: clp-sweep 0.55s ease-in-out infinite alternate; }
+@keyframes clp-sweep { from { top: -10px; } to { top: calc(80px + 10px); } }
 
-  .clp-glitch-a img,
-  .clp-glitch-b img {
-    height: 72px;
-    max-width: 300px;
-    object-fit: contain;
-  }
+/* ── HUD ── */
+#clp-hud-t, #clp-hud-b {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  width: 320px; text-align: center;
+  display: none; pointer-events: none;
+}
+#clp-hud-t { top: -64px; }
+#clp-hud-b { top: 96px; }
 
-  .clp-glitch-a {
-    mix-blend-mode: screen;
-    opacity: 0.55;
-    animation: clp-ga 2.8s steps(1) infinite;
-  }
+.clp-brk {
+  font-size: 10px; letter-spacing: 0.14em; color: #00FF41;
+  animation: clp-flk 0.18s step-start infinite;
+}
+@keyframes clp-flk { 50% { opacity: 0.3; } }
 
-  .clp-glitch-b {
-    mix-blend-mode: screen;
-    opacity: 0.45;
-    animation: clp-gb 3.4s steps(1) infinite;
-  }
+#clp-hex {
+  font-size: 9px; letter-spacing: 0.08em;
+  color: rgba(0,255,65,0.55); margin-top: 5px;
+}
 
-  @keyframes clp-ga {
-    0%,88%,100% { clip-path: none; transform: translate(0,0); filter: none; }
-    89% { clip-path: polygon(0 12%,100% 12%,100% 22%,0 22%); transform: translate(-5px,0); filter: hue-rotate(180deg) brightness(2.5); }
-    91% { clip-path: polygon(0 58%,100% 58%,100% 66%,0 66%); transform: translate(5px,0);  filter: hue-rotate(90deg) brightness(2); }
-    93% { clip-path: polygon(0 38%,100% 38%,100% 44%,0 44%); transform: translate(-3px,0); filter: brightness(3); }
-    95% { clip-path: polygon(0 78%,100% 78%,100% 84%,0 84%); transform: translate(4px,0);  filter: hue-rotate(260deg); }
-    97% { clip-path: none; transform: translate(0,0); filter: none; }
-  }
+#clp-pct {
+  font-size: 30px; font-weight: 700; letter-spacing: 0.1em;
+  color: #00FF41; margin: 6px 0 4px;
+  text-shadow: 0 0 12px #00FF41, 0 0 24px #00FF41;
+}
 
-  @keyframes clp-gb {
-    0%,82%,100% { clip-path: none; transform: translate(0,0); filter: none; }
-    83% { clip-path: polygon(0 48%,100% 48%,100% 54%,0 54%); transform: translate(4px,0);  filter: hue-rotate(60deg) brightness(2); }
-    85% { clip-path: polygon(0 20%,100% 20%,100% 28%,0 28%); transform: translate(-6px,0); filter: brightness(1.8); }
-    87% { clip-path: none; transform: translate(0,0); filter: none; }
-  }
+#clp-stat {
+  font-size: 9px; letter-spacing: 0.22em; color: rgba(0,255,65,0.8);
+  animation: clp-flk 0.45s step-start infinite;
+}
 
-  /* Salida: contrae la pantalla como TV apagándose */
-  #clp-intro.clp-intro--exit {
-    animation: clp-exit 0.8s cubic-bezier(0.7, 0, 1, 1) forwards;
-    transform-origin: center;
-  }
-
-  @keyframes clp-exit {
-    0%   { transform: scaleY(1);    opacity: 1; }
-    55%  { transform: scaleY(0.015); opacity: 1; }
-    100% { transform: scaleY(0.015); opacity: 0; }
-  }
+/* Skip */
+#clp-sk {
+  position: absolute; bottom: 22px; right: 26px; z-index: 30;
+  background: transparent; border: 1px solid rgba(0,255,65,0.28);
+  color: rgba(0,255,65,0.45); font-family: 'Courier New', monospace;
+  font-size: 9px; letter-spacing: 0.22em; padding: 5px 13px;
+  cursor: pointer; transition: all 0.18s;
+}
+#clp-sk:hover { border-color: #00FF41; color: #00FF41; box-shadow: 0 0 8px rgba(0,255,65,0.35); }
 </style>
 
-<div id="clp-intro">
-  <canvas id="clp-hack-canvas"></canvas>
-  <div class="clp-intro__inner">
+<div id="clp-i">
+  <canvas id="clp-c"></canvas>
+  <div id="clp-fl"></div>
+
+  <div id="clp-lw">
     {%- if settings.logo != blank -%}
-      {%- assign logo_src = settings.logo | image_url: width: 600 -%}
-      <img src="{{ logo_src }}" alt="{{ shop.name }}" class="clp-intro__logo">
-      <div class="clp-glitch-a"><img src="{{ logo_src }}" alt=""></div>
-      <div class="clp-glitch-b"><img src="{{ logo_src }}" alt=""></div>
+      <img id="clp-lg-r"    src="{{ logo_src }}" class="clp-ll" alt="">
+      <img id="clp-lg-b"    src="{{ logo_src }}" class="clp-ll" alt="">
+      <img id="clp-lg-main" src="{{ logo_src }}" class="clp-ll" alt="{{ shop.name }}">
     {%- else -%}
-      <span class="clp-intro__logo-text">{{ shop.name | upcase }}</span>
+      <div id="clp-lg-r"    style="display:none"></div>
+      <div id="clp-lg-b"    style="display:none"></div>
+      <div id="clp-lg-main" style="color:#00FF41;font-size:2rem;letter-spacing:0.5em;text-indent:0.5em;text-shadow:0 0 18px #00FF41">
+        {{ shop.name | upcase }}
+      </div>
     {%- endif -%}
+    <div id="clp-sl"></div>
+    <div id="clp-hud-t">
+      <div class="clp-brk">[ ACCESSING... ]</div>
+      <div id="clp-hex">0xFF00A1</div>
+    </div>
+    <div id="clp-hud-b">
+      <div id="clp-pct">0%</div>
+      <div id="clp-stat">INITIALIZING...</div>
+      <div class="clp-brk" style="margin-top:4px">[ SYSTEM... ]</div>
+    </div>
   </div>
+
+  <button id="clp-sk">SKIP ▶</button>
 </div>
 
 <script>
 (function () {
-  if (sessionStorage.getItem('clp-intro-seen')) {
-    var el = document.getElementById('clp-intro');
+  /* ── early exit if already seen ── */
+  if (sessionStorage.getItem('clp-intro')) {
+    var el = document.getElementById('clp-i');
     if (el) el.remove();
     return;
   }
 
-  var canvas  = document.getElementById('clp-hack-canvas');
-  var ctx     = canvas.getContext('2d');
-  var chars   = '01アイウエオCOLLAPSE!@#$%^&*<>/\\|[]{}ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  var drops   = [];
-  var columns = 0;
+  var intro  = document.getElementById('clp-i');
+  var canvas = document.getElementById('clp-c');
+  var ctx    = canvas.getContext('2d');
+  var flash  = document.getElementById('clp-fl');
+  var lw     = document.getElementById('clp-lw');
+  var sl     = document.getElementById('clp-sl');
+  var hudT   = document.getElementById('clp-hud-t');
+  var hudB   = document.getElementById('clp-hud-b');
+  var hexEl  = document.getElementById('clp-hex');
+  var pctEl  = document.getElementById('clp-pct');
+  var statEl = document.getElementById('clp-stat');
+  var skip   = document.getElementById('clp-sk');
 
-  function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-    columns = Math.floor(canvas.width / 16);
-    drops   = Array(columns).fill(1);
-  }
-
+  /* ── Canvas sizing ── */
+  function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
   resize();
-  window.addEventListener('resize', resize);
+  addEventListener('resize', resize);
 
-  function draw() {
-    ctx.fillStyle = 'rgba(8,8,8,0.07)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = '11px "Helvetica Neue", monospace';
+  /* ── Character grid ── */
+  var CH  = 'ABCDEF0123456789!@#%^&*<>/\\|[]{}アイウカキクCOLLAPSE';
+  var CS  = 16;
+  var cols, rows, grid;
 
-    for (var i = 0; i < drops.length; i++) {
-      var ch = chars[Math.floor(Math.random() * chars.length)];
-      ctx.fillStyle = Math.random() > 0.94 ? '#ffffff' : 'rgba(245,240,232,0.35)';
-      ctx.fillText(ch, i * 16, drops[i] * 16);
-      if (drops[i] * 16 > canvas.height && Math.random() > 0.97) drops[i] = 0;
-      drops[i]++;
+  function buildGrid() {
+    cols = Math.ceil(canvas.width  / CS) + 1;
+    rows = Math.ceil(canvas.height / CS) + 1;
+    grid = [];
+    for (var r = 0; r < rows; r++) {
+      grid[r] = [];
+      for (var c = 0; c < cols; c++)
+        grid[r][c] = { ch: rndCh(), a: Math.random() * 0.55 + 0.08 };
+    }
+  }
+  function rndCh() { return CH[Math.floor(Math.random() * CH.length)]; }
+  buildGrid();
+
+  /* ── Particles (phase 4) ── */
+  var pts = [];
+  function spawnPts(n) {
+    var cx = canvas.width / 2, cy = canvas.height / 2;
+    for (var i = 0; i < n; i++) {
+      var a = Math.random() * Math.PI * 2, spd = Math.random() * 12 + 4;
+      pts.push({
+        x: cx + (Math.random()-0.5)*160, y: cy + (Math.random()-0.5)*100,
+        vx: Math.cos(a)*spd, vy: Math.sin(a)*spd,
+        life: 1, sz: Math.floor(Math.random()*14)+7,
+        ch: rndCh()
+      });
     }
   }
 
-  var loop = setInterval(draw, 48);
+  /* ── Render loops ── */
+  function drawGrid() {
+    ctx.fillStyle = 'rgba(0,0,0,0.07)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = (CS-2) + 'px "Courier New"';
 
-  /* Salida a los 3.2s + 0.8s animación = 4s total */
-  setTimeout(function () {
-    clearInterval(loop);
-    var intro = document.getElementById('clp-intro');
-    if (!intro) return;
-    intro.classList.add('clp-intro--exit');
-    setTimeout(function () {
-      intro.remove();
-      sessionStorage.setItem('clp-intro-seen', '1');
-    }, 800);
-  }, 3200);
+    for (var r = 0; r < rows; r++) {
+      var ox = Math.random() < 0.007 ? (Math.random()-0.5)*50 : 0;
+      for (var c = 0; c < cols; c++) {
+        if (Math.random() < 0.055) { grid[r][c].ch = rndCh(); grid[r][c].a = Math.random()*0.55+0.08; }
+        ctx.fillStyle = 'rgba(0,255,65,' + (grid[r][c].a * 0.5) + ')';
+        ctx.fillText(grid[r][c].ch, c*CS + ox, r*CS + CS-2);
+      }
+    }
+    /* Horizontal glitch bar */
+    if (Math.random() < 0.07) {
+      var gy = Math.floor(Math.random() * canvas.height);
+      var gh = Math.floor(Math.random() * 3) + 1;
+      try {
+        var id = ctx.getImageData(0, gy, canvas.width, gh);
+        ctx.putImageData(id, Math.floor((Math.random()-0.5)*50), gy);
+      } catch(e) {}
+    }
+  }
+
+  function drawPts() {
+    pts = pts.filter(function(p){ return p.life > 0; });
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      p.vx *= 1.07; p.vy *= 1.07;
+      p.life -= 0.022;
+      ctx.fillStyle = 'rgba(0,255,65,' + Math.max(0,p.life).toFixed(2) + ')';
+      ctx.font = p.sz + 'px "Courier New"';
+      ctx.fillText(p.ch, p.x, p.y);
+    }
+  }
+
+  /* ── Flash ── */
+  function doFlash(col, op, dur) {
+    flash.style.background = col || '#fff';
+    flash.style.transition = 'none';
+    flash.style.opacity = op || 0.9;
+    setTimeout(function(){ flash.style.transition = 'opacity 0.12s'; flash.style.opacity = 0; }, dur || 80);
+  }
+
+  /* ── Phase state ── */
+  var phase = 1, done = {}, t0 = performance.now(), raf;
+  var pct = 0, pctIv, hexIv, statIv, ptIv;
+  var stats = ['INITIALIZING...','ACCESSING SYSTEM...','DECRYPTING DATA...','BYPASSING FIREWALL...','LOADING ASSETS...','VERIFYING IDENTITY...','ACCESS GRANTED'];
+  var si = 0;
+
+  /* ── Phase 2: logo aparece ── */
+  function p2() {
+    if (done[2]) return; done[2] = 1; phase = 2;
+    lw.style.transition = 'opacity 0.35s ease';
+    lw.style.opacity = '1';
+    setTimeout(function(){ sl.classList.add('on'); }, 250);
+    setTimeout(function(){ lw.classList.add('chr'); }, 450);
+    setTimeout(function(){ lw.classList.remove('chr'); }, 720);
+    doFlash('#00FF41', 0.25, 100);
+  }
+
+  /* ── Phase 3: HUD hacking ── */
+  function p3() {
+    if (done[3]) return; done[3] = 1; phase = 3;
+    sl.classList.remove('on');
+    hudT.style.display = 'block';
+    hudB.style.display = 'block';
+
+    pctIv = setInterval(function(){
+      pct = Math.min(100, pct + Math.floor(Math.random()*18)+3);
+      pctEl.textContent = pct + '%';
+      if (pct >= 100) {
+        clearInterval(pctIv);
+        pctEl.style.color = '#fff';
+        pctEl.style.textShadow = '0 0 20px #fff, 0 0 40px #fff';
+      }
+    }, 65);
+
+    hexIv = setInterval(function(){
+      hexEl.textContent = '0x' + Math.floor(Math.random()*0xFFFFFF).toString(16).toUpperCase().padStart(6,'0')
+        + '  ' + Math.floor(Math.random()*256).toString(2).padStart(8,'0');
+    }, 55);
+
+    statIv = setInterval(function(){
+      if (si < stats.length) statEl.textContent = stats[si++];
+      else clearInterval(statIv);
+    }, 260);
+
+    /* Glitch flickers */
+    var gn = 0, gi = setInterval(function(){
+      lw.classList.toggle('chr');
+      if (++gn > 7) { clearInterval(gi); lw.classList.add('chr'); }
+    }, 200);
+  }
+
+  /* ── Phase 4: zoom ── */
+  function p4() {
+    if (done[4]) return; done[4] = 1; phase = 4;
+    clearInterval(pctIv); clearInterval(hexIv); clearInterval(statIv);
+    hudT.style.display = 'none'; hudB.style.display = 'none';
+    lw.classList.remove('chr'); lw.classList.add('chr-x');
+
+    /* Calcular escala para llenar pantalla */
+    var main = document.getElementById('clp-lg-main');
+    var r    = main.getBoundingClientRect();
+    var sc   = Math.max(innerWidth / (r.width || 80), innerHeight / (r.height || 80)) * 1.3;
+
+    lw.style.transition = 'transform 1.9s cubic-bezier(0.22,0,0.9,1)';
+    lw.style.transform  = 'scale(' + sc + ')';
+
+    /* Destellos */
+    [0, 350, 800, 1300].forEach(function(d){
+      setTimeout(function(){ doFlash('#fff', 0.9, 90); }, d);
+    });
+    setTimeout(function(){ doFlash('#00FF41', 0.6, 60); }, 600);
+
+    /* Partículas */
+    ptIv = setInterval(function(){ spawnPts(10); }, 35);
+    setTimeout(function(){ clearInterval(ptIv); }, 1900);
+
+    /* Finalizar */
+    setTimeout(function(){
+      flash.style.background = '#fff';
+      flash.style.transition = 'opacity 0.55s ease';
+      flash.style.opacity    = '1';
+      setTimeout(end, 480);
+    }, 1900);
+  }
+
+  /* ── Fin ── */
+  function end() {
+    cancelAnimationFrame(raf);
+    intro.style.transition = 'opacity 0.4s ease';
+    intro.style.opacity    = '0';
+    setTimeout(function(){ intro.remove(); sessionStorage.setItem('clp-intro','1'); }, 420);
+  }
+
+  /* ── Loop principal ── */
+  function tick(now) {
+    var e = (now - t0) / 1000;
+    drawGrid();
+    if (phase >= 4) drawPts();
+    if (e >= 2) p2();
+    if (e >= 3) p3();
+    if (e >= 5) p4();
+    raf = requestAnimationFrame(tick);
+  }
+
+  skip.addEventListener('click', end);
+  raf = requestAnimationFrame(tick);
 })();
 </script>
 {%- endunless -%}
