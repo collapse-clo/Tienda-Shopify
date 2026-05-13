@@ -66,6 +66,14 @@ body::after {
   opacity: 0.7;
 }
 
+/* ── Hero video — zoom out (contain en lugar de cover) ──── */
+
+.hero__media-wrapper video,
+.hero__media video {
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
 /* ── Header sticky ───────────────────────────────────────── */
 
 header-component,
