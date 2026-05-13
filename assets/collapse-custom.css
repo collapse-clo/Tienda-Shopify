@@ -14,11 +14,16 @@
 
   --hover-transition-duration: 0.35s;
 
-  /* Helvetica Regular — fuente global */
-  --font-body--family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-primary--family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-heading--family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-accent--family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Helvetica Regular — fuente global (sobreescribe Inter/Syne del tema) */
+  --font-body--family:       'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-subheading--family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-heading--family:    'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-accent--family:     'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --font-body--weight:       400;
+  --font-subheading--weight: 400;
+  --font-heading--weight:    400;
+  --font-accent--weight:     400;
 }
 
 /* ── Fondo base negro ───────────────────────────────────── */
@@ -128,11 +133,11 @@ header-component svg,
 
 /* ── Tipografía — Helvetica Regular ─────────────────────── */
 
-body, h1, h2, h3, h4, h5, h6,
-p, a, span, li, button, input,
-select, textarea, label {
+*,
+*::before,
+*::after {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-  font-weight: 400;
+  font-weight: 400 !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
