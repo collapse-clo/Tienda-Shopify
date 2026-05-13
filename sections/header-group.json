@@ -16,10 +16,10 @@
       "settings": {
         "menu": "main-menu",
         "show_search": true,
-        "label_search": "Buscar",
-        "label_account": "Iniciar sesión",
-        "label_account_logged": "Cuenta",
-        "label_cart": "Carrito"
+        "label_search": "BUSCAR",
+        "label_account": "INICIAR SESIÓN",
+        "label_account_logged": "CUENTA",
+        "label_cart": "CARRITO"
       }
     }
   },
