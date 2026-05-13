@@ -12,9 +12,19 @@
 
   <div class="ch-logo">
     <a href="/" aria-label="{{ shop.name }}">
-      <svg class="ch-logo__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 90" aria-hidden="true" focusable="false">
-        <polygon points="80,12 98,36 152,36 110,51 125,75 80,61 35,75 51,51 8,36 62,36"/>
-      </svg>
+      {%- if settings.logo -%}
+        {{
+          settings.logo
+          | image_tag:
+            width: 140,
+            class: 'ch-logo__img',
+            alt: shop.name,
+            loading: 'eager',
+            fetchpriority: 'high'
+        }}
+      {%- else -%}
+        <span class="ch-logo__text">{{ shop.name }}</span>
+      {%- endif -%}
     </a>
   </div>
 
@@ -109,11 +119,17 @@
     text-decoration: none;
   }
 
-  .ch-logo__svg {
-    height: 26px;
+  .ch-logo__img {
+    height: 32px;
     width: auto;
     display: block;
-    fill: #000;
+  }
+
+  .ch-logo__text {
+    font-size: 0.9rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #000;
   }
 
   .ch-cart__count {
