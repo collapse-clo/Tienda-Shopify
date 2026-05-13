@@ -6,7 +6,17 @@
   {%- comment -%} Logo 3D rotando {%- endcomment -%}
   <div class="clp-hero__star-wrap" aria-hidden="true">
     <div class="clp-hero__star-stage">
-      {%- if settings.logo -%}
+      {%- if section.settings.video_url != blank -%}
+        <video
+          class="clp-hero__video"
+          src="{{ section.settings.video_url }}"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="auto"
+        ></video>
+      {%- elsif settings.logo -%}
         {{
           settings.logo
           | image_url: width: 800
@@ -65,10 +75,16 @@
   }
 
   .clp-hero__star-stage {
-    width: clamp(200px, 38vw, 560px);
+    width: clamp(140px, 24vw, 360px);
     transform-style: preserve-3d;
     animation: clp-spin3d 9s linear infinite;
     filter: drop-shadow(0 0 40px rgba(255,255,255,0.08));
+  }
+
+  .clp-hero__video {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   .clp-hero__logo-img {
@@ -133,6 +149,12 @@
   "tag": "section",
   "class": "shopify-section",
   "settings": [
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "URL del video (Shopify Files)",
+      "info": "Sube el video en Admin → Contenido → Archivos, copia la URL y pégala aquí"
+    },
     {
       "type": "text",
       "id": "btn_label",
