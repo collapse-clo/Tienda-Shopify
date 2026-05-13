@@ -1,0 +1,211 @@
+<div class="clp-hero">
+
+  {%- comment -%} Fondo negro con grano {%- endcomment -%}
+  <div class="clp-hero__bg"></div>
+
+  {%- comment -%} Logo 3D rotando {%- endcomment -%}
+  <div class="clp-hero__star-wrap" aria-hidden="true">
+    <div class="clp-hero__star-stage">
+      {%- if settings.logo -%}
+        {{
+          settings.logo
+          | image_url: width: 800
+          | image_tag: class: 'clp-hero__logo-img', alt: shop.name, loading: 'eager'
+        }}
+      {%- else -%}
+        <svg class="clp-hero__logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 90">
+          <polygon points="80,12 98,36 152,36 110,51 125,75 80,61 35,75 51,51 8,36 62,36"/>
+        </svg>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Contenido izquierda {%- endcomment -%}
+  <div class="clp-hero__content">
+    <span class="clp-hero__label">{{ section.settings.label }}</span>
+    <p class="clp-hero__heading">{{ section.settings.heading }}</p>
+    <a href="{{ section.settings.collection_url }}" class="clp-hero__btn">
+      {{ section.settings.btn_label }}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" width="20" height="10" aria-hidden="true">
+        <polyline points="14,1 19,5 14,9" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <line x1="1" y1="5" x2="19" y2="5" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </a>
+  </div>
+
+</div>
+
+{% stylesheet %}
+
+  .clp-hero {
+    position: relative;
+    width: 100%;
+    height: 88vh;
+    min-height: 520px;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  /* ── Grano de fondo ── */
+  .clp-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 300px 300px;
+    pointer-events: none;
+  }
+
+  /* ── Contenedor de la animación 3D ── */
+  .clp-hero__star-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    perspective: 900px;
+  }
+
+  .clp-hero__star-stage {
+    width: clamp(200px, 38vw, 560px);
+    transform-style: preserve-3d;
+    animation: clp-spin3d 9s linear infinite;
+    filter: drop-shadow(0 0 40px rgba(255,255,255,0.08));
+  }
+
+  .clp-hero__logo-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: brightness(10);
+  }
+
+  .clp-hero__logo-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    fill: #fff;
+  }
+
+  @keyframes clp-spin3d {
+    0%   { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+  }
+
+  /* ── Contenido izquierda ── */
+  .clp-hero__content {
+    position: relative;
+    z-index: 2;
+    padding: 0 44px 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .clp-hero__label {
+    font-size: 0.55rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+  }
+
+  .clp-hero__heading {
+    font-size: clamp(1rem, 2.2vw, 1.6rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .clp-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 11px 22px;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #000;
+    background: #fff;
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease, outline-color 0.25s ease;
+    outline: 1px solid transparent;
+  }
+
+  .clp-hero__btn:hover {
+    background: transparent;
+    color: #fff;
+    outline-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .clp-hero__btn svg {
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+  }
+
+  .clp-hero__btn:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* ── Mobile ── */
+  @media screen and (max-width: 749px) {
+    .clp-hero {
+      height: 75vh;
+    }
+
+    .clp-hero__content {
+      padding: 0 20px 36px;
+    }
+
+    .clp-hero__star-stage {
+      width: clamp(180px, 70vw, 320px);
+    }
+  }
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collapse Hero",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Etiqueta superior",
+      "default": "Nueva colección"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Phase 01 — Static"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Texto del botón",
+      "default": "New Collection"
+    },
+    {
+      "type": "url",
+      "id": "collection_url",
+      "label": "Enlace del botón"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collapse Hero"
+    }
+  ]
+}
+{% endschema %}

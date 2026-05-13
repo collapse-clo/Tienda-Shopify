@@ -8,6 +8,18 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "collapse_hero": {
+      "type": "collapse-hero",
+      "settings": {
+        "label": "Nueva colección",
+        "heading": "Phase 01 — Static",
+        "btn_label": "New Collection",
+        "collection_url": "/collections/all"
+      }
+    }
+  },
+  "order": [
+    "collapse_hero"
+  ]
 }
