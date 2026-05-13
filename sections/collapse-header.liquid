@@ -15,8 +15,8 @@
       {%- if settings.logo -%}
         {{
           settings.logo
+          | image_url: width: 140
           | image_tag:
-            width: 140,
             class: 'ch-logo__img',
             alt: shop.name,
             loading: 'eager',
