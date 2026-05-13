@@ -1,0 +1,220 @@
+{% assign nav_menu = linklists[section.settings.menu] %}
+
+<div class="ch-wrap">
+
+  <nav class="ch-left" aria-label="Navegación principal">
+    {% for link in nav_menu.links %}
+      <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>
+        {{- link.title -}}
+      </a>
+    {% endfor %}
+  </nav>
+
+  <div class="ch-logo">
+    <a href="/" aria-label="{{ shop.name }}">
+      {%- if settings.logo -%}
+        {{
+          settings.logo
+          | image_tag:
+            width: 140,
+            class: 'ch-logo__img',
+            alt: shop.name,
+            loading: 'eager',
+            fetchpriority: 'high'
+        }}
+      {%- else -%}
+        <span class="ch-logo__text">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+  </div>
+
+  <nav class="ch-right" aria-label="Utilidades">
+    {%- if section.settings.show_search -%}
+      <a href="/search">{{- section.settings.label_search -}}</a>
+    {%- endif -%}
+
+    {%- if shop.customer_accounts_enabled -%}
+      {%- if customer -%}
+        <a href="/account">{{ section.settings.label_account_logged }}</a>
+      {%- else -%}
+        <a href="/account/login">{{ section.settings.label_account }}</a>
+      {%- endif -%}
+    {%- endif -%}
+
+    <a href="/cart" class="ch-cart">
+      {{- section.settings.label_cart -}}
+      {%- if cart.item_count > 0 -%}
+        <span class="ch-cart__count">({{ cart.item_count }})</span>
+      {%- endif -%}
+    </a>
+  </nav>
+
+</div>
+
+{% stylesheet %}
+  .collapse-header-section {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: #fff;
+  }
+
+  .ch-wrap {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    height: 58px;
+    padding: 0 40px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .ch-left,
+  .ch-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .ch-right {
+    justify-content: flex-end;
+  }
+
+  .ch-left a,
+  .ch-right a {
+    font-family: var(--font-body--family, sans-serif);
+    font-size: 0.625rem;
+    letter-spacing: 0.18em;
+    color: #000;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .ch-left a {
+    text-transform: uppercase;
+  }
+
+  .ch-right a {
+    text-transform: none;
+    letter-spacing: 0.06em;
+    font-size: 0.7rem;
+  }
+
+  .ch-left a:hover,
+  .ch-right a:hover {
+    opacity: 0.45;
+  }
+
+  .ch-left a[aria-current='page'] {
+    opacity: 0.45;
+  }
+
+  .ch-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ch-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .ch-logo__img {
+    height: 30px;
+    width: auto;
+    display: block;
+  }
+
+  .ch-logo__text {
+    font-family: var(--font-primary--family, sans-serif);
+    font-size: 0.9rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #000;
+  }
+
+  .ch-cart__count {
+    margin-left: 1px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ch-wrap {
+      padding: 0 16px;
+      grid-template-columns: auto 1fr auto;
+      gap: 0;
+    }
+
+    .ch-left {
+      display: none;
+    }
+
+    .ch-right {
+      gap: 1rem;
+    }
+
+    .ch-right a:not(.ch-cart) {
+      display: none;
+    }
+
+    .ch-cart {
+      display: flex !important;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collapse Header",
+  "tag": "header",
+  "class": "collapse-header-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Navegación"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menú principal",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Acciones"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Mostrar buscar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "label_search",
+      "label": "Texto — Buscar",
+      "default": "Buscar"
+    },
+    {
+      "type": "text",
+      "id": "label_account",
+      "label": "Texto — Iniciar sesión",
+      "default": "Iniciar sesión"
+    },
+    {
+      "type": "text",
+      "id": "label_account_logged",
+      "label": "Texto — Cuenta (sesión activa)",
+      "default": "Cuenta"
+    },
+    {
+      "type": "text",
+      "id": "label_cart",
+      "label": "Texto — Carrito",
+      "default": "Carrito"
+    }
+  ],
+  "presets": []
+}
+{% endschema %}
