@@ -74,6 +74,13 @@ body::after {
   object-position: center center !important;
 }
 
+.hero__media-wrapper,
+.hero__media,
+.hero__media-wrapper--desktop,
+.hero__media-wrapper--mobile {
+  background-color: #000 !important;
+}
+
 /* ── Header sticky ───────────────────────────────────────── */
 
 header-component,
