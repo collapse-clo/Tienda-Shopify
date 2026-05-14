@@ -15,7 +15,7 @@
         "text_tcBFVx": {
           "type": "text",
           "settings": {
-            "text": "<h2>Novedades</h2>",
+            "text": "<h2>COLLAPSE</h2>",
             "width": "fit-content",
             "max_width": "narrow",
             "alignment": "left",
