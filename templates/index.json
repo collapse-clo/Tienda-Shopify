@@ -126,10 +126,21 @@
         "link_label": "Explorar la colección",
         "link": ""
       }
+    },
+    "collapse_products_PNdBgJ": {
+      "type": "collapse-products",
+      "name": "Collapse Products",
+      "settings": {
+        "eyebrow": "DROP 001",
+        "collection": "",
+        "limit": 4,
+        "link_label": "Ver todo"
+      }
     }
   },
   "order": [
     "hero_md8xwY",
-    "collapse_statement_KD8am8"
+    "collapse_statement_KD8am8",
+    "collapse_products_PNdBgJ"
   ]
 }
