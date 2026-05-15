@@ -359,6 +359,54 @@
       white-space: nowrap;
     }
   }
+
+  /* ── COLLAPSE overrides ── */
+
+  /* Imagen: máximo 72vh */
+  .product-media-container.constrain-height {
+    max-height: 72vh !important;
+  }
+  .product-media-container.constrain-height img,
+  .product-media-container.constrain-height video {
+    max-height: 72vh !important;
+    object-fit: contain !important;
+  }
+
+  /* Título: tamaño controlado, uppercase */
+  .product-details .h1 p,
+  .product-details .h2 p,
+  .product-details .h3 p,
+  .product-details [role="heading"] {
+    font-size: clamp(18px, 2vw, 28px) !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    font-weight: 400 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Sin border-radius en imágenes */
+  .product-media-container {
+    border-radius: 0 !important;
+  }
+
+  /* Thumbnails sin radius */
+  .product-media-gallery__thumbnail {
+    border-radius: 0 !important;
+  }
+  .product-media-gallery__thumbnail[aria-current="true"],
+  .product-media-gallery__thumbnail[aria-selected="true"] {
+    outline: 1px solid #1A1A1A !important;
+    outline-offset: 0 !important;
+  }
+
+  /* Botón añadir al carrito */
+  .add-to-cart-button {
+    border-radius: 0 !important;
+    letter-spacing: 0.16em !important;
+    text-transform: uppercase !important;
+    font-size: 0.65rem !important;
+  }
+
 {% endstylesheet %}
 
 {% schema %}
