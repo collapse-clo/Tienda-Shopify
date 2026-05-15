@@ -9,16 +9,18 @@
     }
   }
 
-  /* ── Altura de la imagen principal: no ocupa pantalla completa ── */
-  .product-media-container {
+  /* ── Altura de la imagen principal: 72vh ── */
+  .product-media-container.constrain-height {
     max-height: 72vh !important;
+    height: 72vh !important;
   }
 
-  .product-media-container img,
-  .product-media-container video {
-    max-height: 72vh;
-    object-fit: contain;
-    width: 100%;
+  .product-media-container.constrain-height img,
+  .product-media-container.constrain-height video {
+    max-height: 72vh !important;
+    height: 72vh !important;
+    object-fit: contain !important;
+    width: 100% !important;
   }
 
   /* ── Fondo blanco limpio ── */

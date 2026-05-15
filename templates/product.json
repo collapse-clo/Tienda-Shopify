@@ -16,21 +16,21 @@
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
-            "media_presentation": "grid",
-            "media_columns": "two",
-            "image_gap": 1,
-            "large_first_image": true,
+            "media_presentation": "carousel",
+            "media_columns": "one",
+            "image_gap": 0,
+            "large_first_image": false,
             "icons_style": "none",
-            "slideshow_controls_style": "counter",
+            "slideshow_controls_style": "thumbnails",
             "slideshow_mobile_controls_style": "dots",
-            "thumbnail_position": "bottom",
-            "thumbnail_width": 44,
+            "thumbnail_position": "left",
+            "thumbnail_width": 64,
             "thumbnail_radius": 0,
-            "aspect_ratio": "1",
-            "constrain_to_viewport": false,
-            "media_fit": "cover",
+            "aspect_ratio": "adapt",
+            "constrain_to_viewport": true,
+            "media_fit": "contain",
             "media_radius": 0,
-            "extend_media": true,
+            "extend_media": false,
             "zoom": true,
             "video_loop": false,
             "hide_variants": false,
@@ -102,12 +102,12 @@
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h2",
+                "type_preset": "h3",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
+                "letter_spacing": "loose",
+                "case": "uppercase",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
                 "background": false,
@@ -251,6 +251,10 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "collapse_product_styles": {
+      "type": "collapse-product-styles",
+      "settings": {}
     },
     "product_recommendations_iA6pyd": {
       "type": "product-recommendations",
@@ -527,6 +531,7 @@
   },
   "order": [
     "main",
-    "product_recommendations_iA6pyd"
+    "product_recommendations_iA6pyd",
+    "collapse_product_styles"
   ]
 }
