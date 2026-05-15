@@ -115,9 +115,21 @@
         "padding-block-start": 40,
         "padding-block-end": 40
       }
+    },
+    "collapse_statement_KD8am8": {
+      "type": "collapse-statement",
+      "name": "Collapse Statement",
+      "settings": {
+        "eyebrow": "Phase 01 — SS26",
+        "headline": "Construido para lo que viene.",
+        "subtext": "<p>Dos piezas. Sin temporadas que caducan. Sin ruido. Solo construcción.</p>",
+        "link_label": "Explorar la colección",
+        "link": ""
+      }
     }
   },
   "order": [
-    "hero_md8xwY"
+    "hero_md8xwY",
+    "collapse_statement_KD8am8"
   ]
 }
