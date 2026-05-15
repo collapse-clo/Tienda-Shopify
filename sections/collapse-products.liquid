@@ -1,0 +1,248 @@
+{%- assign col = section.settings.collection -%}
+
+<div class="clp-prod">
+
+  <div class="clp-prod__head">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="clp-prod__eyebrow">{{ section.settings.eyebrow }}</span>
+    {%- endif -%}
+    {%- if section.settings.collection != blank -%}
+      <a href="{{ col.url }}" class="clp-prod__see-all">{{ section.settings.link_label }}</a>
+    {%- endif -%}
+  </div>
+
+  <div class="clp-prod__grid">
+    {%- if col != blank and col.products_count > 0 -%}
+      {%- for product in col.products limit: section.settings.limit -%}
+        <a href="{{ product.url }}" class="clp-prod__card">
+          <div class="clp-prod__img-wrap">
+            {%- if product.featured_image -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.featured_image.alt | escape }}"
+                class="clp-prod__img clp-prod__img--main"
+                loading="lazy"
+                width="600"
+              >
+              {%- if product.images[1] -%}
+                <img
+                  src="{{ product.images[1] | image_url: width: 600 }}"
+                  alt="{{ product.images[1].alt | escape }}"
+                  class="clp-prod__img clp-prod__img--hover"
+                  loading="lazy"
+                  width="600"
+                >
+              {%- endif -%}
+            {%- else -%}
+              <div class="clp-prod__placeholder"></div>
+            {%- endif -%}
+
+            {%- unless product.available -%}
+              <span class="clp-prod__badge">Agotado</span>
+            {%- endunless -%}
+          </div>
+
+          <div class="clp-prod__info">
+            <span class="clp-prod__name">{{ product.title }}</span>
+            <span class="clp-prod__price">
+              {%- if product.compare_at_price > product.price -%}
+                <s class="clp-prod__price--old">{{ product.compare_at_price | money }}</s>
+              {%- endif -%}
+              {{ product.price | money }}
+            </span>
+          </div>
+        </a>
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..4) -%}
+        <div class="clp-prod__card clp-prod__card--empty">
+          <div class="clp-prod__img-wrap">
+            <div class="clp-prod__placeholder"></div>
+          </div>
+          <div class="clp-prod__info">
+            <span class="clp-prod__name">— Producto —</span>
+            <span class="clp-prod__price">—€</span>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+</div>
+
+{% stylesheet %}
+.clp-prod {
+  padding: 64px 48px 80px;
+  background: #fff;
+}
+
+.clp-prod__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 32px;
+}
+
+.clp-prod__eyebrow {
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.4);
+}
+
+.clp-prod__see-all {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #1A1A1A;
+  text-decoration: none;
+  border-bottom: 1px solid #1A1A1A;
+  padding-bottom: 1px;
+  transition: opacity 0.2s ease;
+}
+.clp-prod__see-all:hover { opacity: 0.45; }
+
+.clp-prod__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+
+.clp-prod__card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+}
+
+.clp-prod__img-wrap {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: #EDEAE4;
+}
+
+.clp-prod__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.5s ease;
+}
+
+.clp-prod__img--hover {
+  opacity: 0;
+}
+
+.clp-prod__card:hover .clp-prod__img--main {
+  opacity: 0;
+}
+
+.clp-prod__card:hover .clp-prod__img--hover {
+  opacity: 1;
+}
+
+.clp-prod__card:hover .clp-prod__img--main:only-child {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+.clp-prod__placeholder {
+  position: absolute;
+  inset: 0;
+  background: #EDEAE4;
+}
+
+.clp-prod__badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(26,26,26,0.55);
+  background: rgba(245,240,232,0.85);
+  padding: 4px 8px;
+}
+
+.clp-prod__info {
+  padding: 14px 2px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.clp-prod__name {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1A1A1A;
+}
+
+.clp-prod__price {
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: rgba(26,26,26,0.55);
+  white-space: nowrap;
+}
+
+.clp-prod__price--old {
+  text-decoration: line-through;
+  margin-right: 4px;
+  opacity: 0.5;
+}
+
+@media (max-width: 1024px) {
+  .clp-prod__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 749px) {
+  .clp-prod { padding: 48px 16px 64px; }
+  .clp-prod__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collapse Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta",
+      "default": "Nuevos drops"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Colección"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Número de productos",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Texto del enlace",
+      "default": "Ver todo"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collapse Products"
+    }
+  ]
+}
+{% endschema %}
