@@ -199,11 +199,11 @@
       },
       "scheme-5": {
         "settings": {
-          "background": "#1a1a1a",
-          "foreground_heading": "#f5f0e8",
-          "foreground": "#f5f0e8",
+          "background": "#000000",
+          "foreground_heading": "#ffffff",
+          "foreground": "#ffffff",
           "primary": "#f5f0e8",
-          "primary_hover": "#ffffff",
+          "primary_hover": "#8c8c8c",
           "border": "#3a3a3a",
           "shadow": "#000000",
           "primary_button_background": "#f5f0e8",
