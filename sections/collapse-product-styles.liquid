@@ -1,0 +1,141 @@
+{% comment %} Collapse Product Page — CSS overrides {% endcomment %}
+
+{% stylesheet %}
+
+  /* ── Layout: galería más ancha, info más estrecha ── */
+  @media screen and (min-width: 750px) {
+    .product-information__grid:not(.product-information__grid--half, .product-information--media-none).product-information--media-left {
+      grid-template-columns: 55% 45%;
+    }
+  }
+
+  /* ── Altura de la imagen principal: no ocupa pantalla completa ── */
+  .product-media-container {
+    max-height: 72vh !important;
+  }
+
+  .product-media-container img,
+  .product-media-container video {
+    max-height: 72vh;
+    object-fit: contain;
+    width: 100%;
+  }
+
+  /* ── Fondo blanco limpio ── */
+  .product-information {
+    background: #fff;
+  }
+
+  /* ── Título del producto ── */
+  .product-details h1,
+  .product-details .product-title,
+  [data-testid="product-title"] {
+    font-size: clamp(20px, 2.2vw, 32px) !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    font-weight: 400 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* ── Precio ── */
+  .product-details .price,
+  .product-details [data-testid="price-display"] {
+    font-size: 1rem !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  /* ── Botón añadir al carrito ── */
+  .product-details .add-to-cart-button,
+  .product-details button[name="add"] {
+    background: #1A1A1A !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.2em !important;
+    text-transform: uppercase !important;
+    height: 52px !important;
+    font-family: 'Inter', sans-serif !important;
+    transition: background 0.25s ease !important;
+  }
+
+  .product-details .add-to-cart-button:hover,
+  .product-details button[name="add"]:hover {
+    background: #333 !important;
+  }
+
+  /* ── Selector de tallas ── */
+  .product-details .variant-picker fieldset label,
+  .product-details .swatch-button,
+  .product-details [data-option-value] {
+    border-radius: 0 !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.08em !important;
+    min-width: 44px !important;
+    height: 44px !important;
+  }
+
+  /* ── Separadores ── */
+  .product-details hr,
+  .product-details .divider {
+    border-color: #E0E0E0 !important;
+  }
+
+  /* ── Etiqueta de colección / categoría ── */
+  .product-details .product-vendor,
+  .product-details [data-testid="product-vendor"] {
+    font-size: 0.55rem !important;
+    letter-spacing: 0.26em !important;
+    text-transform: uppercase !important;
+    opacity: 0.45 !important;
+  }
+
+  /* ── Acordeón de descripción ── */
+  .product-details .accordion summary,
+  .product-details details summary {
+    font-size: 0.6rem !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase !important;
+  }
+
+  /* ── Thumbnails laterales (si se activan en el editor) ── */
+  .product-media-gallery__thumbnails {
+    gap: 6px !important;
+  }
+
+  .product-media-gallery__thumbnail {
+    border-radius: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .product-media-gallery__thumbnail[aria-current="true"],
+  .product-media-gallery__thumbnail[aria-selected="true"] {
+    outline: 1px solid #1A1A1A !important;
+    outline-offset: 0 !important;
+  }
+
+  /* ── Mobile ── */
+  @media screen and (max-width: 749px) {
+    .product-media-container {
+      max-height: 75vw !important;
+    }
+
+    .product-media-container img {
+      max-height: 75vw !important;
+    }
+  }
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collapse — Estilos producto",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Collapse — Estilos producto"
+    }
+  ]
+}
+{% endschema %}
