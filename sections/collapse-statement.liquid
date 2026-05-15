@@ -1,110 +1,97 @@
-<div class="clp-statement">
+<div class="clp-stat">
   {%- if section.settings.eyebrow != blank -%}
-    <p class="clp-statement__eyebrow">{{ section.settings.eyebrow }}</p>
+    <p class="clp-stat__eyebrow">{{ section.settings.eyebrow }}</p>
   {%- endif -%}
 
   {%- if section.settings.headline != blank -%}
-    <h2 class="clp-statement__headline">{{ section.settings.headline }}</h2>
+    <h2 class="clp-stat__headline">{{ section.settings.headline }}</h2>
   {%- endif -%}
 
   {%- if section.settings.subtext != blank -%}
-    <p class="clp-statement__sub">{{ section.settings.subtext }}</p>
+    <div class="clp-stat__sub">{{ section.settings.subtext }}</div>
   {%- endif -%}
 
   {%- if section.settings.link_label != blank and section.settings.link != blank -%}
-    <a href="{{ section.settings.link }}" class="clp-statement__link">
+    <a href="{{ section.settings.link }}" class="clp-stat__link">
       {{ section.settings.link_label }}
     </a>
   {%- endif -%}
 </div>
 
 {% stylesheet %}
-
-  .clp-statement {
-    padding: 96px 48px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-    text-align: center;
-    border-bottom: 1px solid #D4CFC7;
-    background: #F5F0E8;
-  }
-
-  .clp-statement__eyebrow {
-    font-size: 0.625rem;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: #8C8C8C;
-  }
-
-  .clp-statement__headline {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(28px, 4.5vw, 64px);
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    line-height: 1.05;
-    color: #1A1A1A;
-    max-width: 820px;
-  }
-
-  .clp-statement__sub {
-    font-size: 0.8125rem;
-    font-weight: 300;
-    letter-spacing: 0.04em;
-    color: #8C8C8C;
-    max-width: 400px;
-    line-height: 1.75;
-  }
-
-  .clp-statement__link {
-    font-size: 0.625rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #1A1A1A;
-    text-decoration: none;
-    border-bottom: 1px solid #1A1A1A;
-    padding-bottom: 2px;
-    transition: opacity 0.2s ease;
-  }
-
-  .clp-statement__link:hover {
-    opacity: 0.45;
-  }
-
-  @media screen and (max-width: 749px) {
-    .clp-statement {
-      padding: 64px 24px;
-      gap: 20px;
-    }
-  }
-
+.clp-stat {
+  padding: 96px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  text-align: center;
+  border-bottom: 1px solid #D4CFC7;
+  background: #F5F0E8;
+}
+.clp-stat__eyebrow {
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(26,26,26,0.45);
+  margin: 0;
+}
+.clp-stat__headline {
+  font-size: clamp(28px, 4.5vw, 64px);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: #1A1A1A;
+  max-width: 820px;
+  margin: 0;
+}
+.clp-stat__sub {
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: rgba(26,26,26,0.55);
+  max-width: 400px;
+  line-height: 1.75;
+}
+.clp-stat__sub p { margin: 0; }
+.clp-stat__link {
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #1A1A1A;
+  text-decoration: none;
+  border-bottom: 1px solid #1A1A1A;
+  padding-bottom: 2px;
+  transition: opacity 0.2s ease;
+}
+.clp-stat__link:hover { opacity: 0.45; }
+@media (max-width: 749px) {
+  .clp-stat { padding: 64px 24px; gap: 20px; }
+}
 {% endstylesheet %}
 
 {% schema %}
 {
   "name": "Collapse Statement",
-  "tag": "section",
-  "class": "shopify-section",
   "settings": [
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Etiqueta pequeña (encima del título)",
+      "label": "Etiqueta pequeña",
       "default": "Phase 01 — SS26"
     },
     {
-      "type": "textarea",
+      "type": "text",
       "id": "headline",
       "label": "Frase principal",
-      "default": "Construido\npara lo que viene."
+      "default": "Construido para lo que viene."
     },
     {
-      "type": "textarea",
+      "type": "richtext",
       "id": "subtext",
       "label": "Subtexto",
-      "default": "Doce piezas. Sin temporadas que caducan.\nSin ruido. Solo construcción."
+      "default": "<p>Doce piezas. Sin temporadas que caducan. Sin ruido. Solo construcción.</p>"
     },
     {
       "type": "text",
