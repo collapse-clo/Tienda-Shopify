@@ -132,7 +132,7 @@
       "name": "Collapse Products",
       "settings": {
         "eyebrow": "DROP 001",
-        "collection": "",
+        "collection": "frontpage",
         "limit": 4,
         "link_label": "Ver todo"
       }
